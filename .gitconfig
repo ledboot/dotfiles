@@ -1,0 +1,15 @@
+#[user]
+#	email = modood@qq.com
+#	name = modood
+#
+
+[url "git@code.hellotalk.com:"]
+        insteadOf = https://code.hellotalk.com/
+
+[core]
+	quotepath = false
+	pager = less -x1,5
+
+[user]
+	name = gwynn
+	email = gwynn@hellotalk.com
