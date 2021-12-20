@@ -1,284 +1,162 @@
-  ###############################################################################
-# YOU FIRST NEED TO HAVE THESE PACKAGES INSTALLED:
-# 1. oh-my-zsh        https://github.com/robbyrussell/oh-my-zsh
-# 2. tmux             https://github.com/tmux/tmux
-# 3. nvm              https://github.com/creationix/nvm
-# 4. gvm              https://github.com/moovweb/gvm
-# 5. autojump         https://github.com/wting/autojump
-# 6. fzf              https://github.com/junegunn/fzf
-###############################################################################
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-export GOROOT=/home/hellotalk/go
-export GOPATH=/home/hellotalk/workspace/go-workspace
-export GOPRIVATE="code.hellotalk.com"
-export PATH=$PATH:$GOROOT/bin:$HOME/.local/bin
-# Set name of the theme to load.
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/eleven/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    vi-mode                     # https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/vi-mode
-    history-substring-search    # https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/history-substring-search
-    git
-    git-flow
-    docker
-)
+plugins=(git git-flow docker docker-compose z tmux)
 
 source $ZSH/oh-my-zsh.sh
+#autoload -Uz compinit && compinit
+#autoload -U compinit
+#compinit
 
-# CONFIGURATIONS OF PLUGINS
-c-history-substring-search () {
-    # bind k and j for VI mode
-    bindkey -M vicmd 'k' history-substring-search-up
-    bindkey -M vicmd 'j' history-substring-search-down
-}
-c-history-substring-search
 
-# Set language environment
-export LANG=en_US.UTF-8
+# User configuration
 
-# Set personal aliases
-alias c="clear"
+# export MANPATH="/usr/local/man:$MANPATH"
 
-alias ns="npm start"
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-alias sc="vi ~/.zshrc"
-alias scs=". ~/.zshrc"
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+export EDITOR='vim'
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-alias h="history | grep"
-function diff () { colordiff -u $@ | less; }
-
-alias dps="docker ps"
-alias dpsa="docker ps -a"
-alias di="docker images"
-alias dl="docker logs"
-alias dn="docker network ls"
-alias drm="docker rm"
-alias drmi="docker rmi"
-alias drmn="docker network rm"
-#kubernetes
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias k="kubectl"
 alias kst="kustomize"
-alias jumpserver="ssh -o ServerAliveInterval=30  -p2222 gwynn@jumpserver.hellotalk8.com"
-# Source tmux configuration
-[ -f ~/.tmux.conf ] && tmux source-file ~/.tmux.conf
+alias scs=". ~/.zshrc"
+alias dps="docker ps"
+alias dex="docker exec -ti"
+alias ljump="ssh  -o ServerAliveInterval=30 -p 2222 gwynn@10.10.2.2"
 
-# Load nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# func
 
-# Load gvm
-[ -s "$HOME/.gvm/scripts/gvm" ] && \. "$HOME/.gvm/scripts/gvm"
+__complete_ssh_host() {
+    local KNOWN_FILE=~/.ssh/known_hosts
+    if [ -r $KNOWN_FILE ] ; then
+        local KNOWN_LIST=`cut -f 1 -d ' ' $KNOWN_FILE | cut -f 1 -d ',' | grep -v '^[0-9[]'`
+    fi
 
-# Load autojump
-[ -f /usr/share/autojump/autojump.sh ] && source /usr/share/autojump/autojump.sh
+    local CONFIG_FILE=~/.ssh/config
+    if [ -r $CONFIG_FILE ] ; then
+        local CONFIG_LIST=`awk '/^Host [A-Za-z]+/ {print $2}' $CONFIG_FILE`
+    fi
 
-# Load fzf
+    local HOST_FILE=/etc/hosts
+    if [ -r $HOST_FILE ] ; then
+        local HOST_LIST=`awk '/^[0-9]+/ {print $2}' $HOST_FILE`
+    fi
+
+    local PARTIAL_WORD="${COMP_WORDS[COMP_CWORD]}";
+
+    COMPREPLY=( $(compgen -W "$HOST_LIST$IFS$KNOWN_LIST$IFS$CONFIG_LIST" -- "$PARTIAL_WORD") )
+
+    return 0
+}
+export TERM=xterm-256color
+# export GOROOT="/Users/Gwynn/go-version/1.16.4/go"
+# export GOBIN="/Users/eleven/go/bin"
+export GOPROXY=https://goproxy.io,direct
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+export OPENVPN="/usr/local/Cellar/openvpn/2.5.3/sbin"
+export PATH="$OPENVPN:$GOBIN:$GOROOT/bin:/usr/local/opt/gettext/bin:/usr/local/bin:$PATH"
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+
+# Internal Shell
+[ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] &&  eval "$("$BASE16_SHELL/profile_helper.sh")"
+[ -f  /usr/local/bin/kubectl ] && source <(kubectl completion zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Little cat
-cat="
-              /\\_/\\
-            =( °w° )=
-              )   (  _     Nothing todo.
-             (__ __)//     Why don't you take a little break? \n"
-
-# todo - a simple todo list
-todo () {
-    test -f $HOME/.todo || touch $HOME/.todo
-    if [ $# = 0 ]
-    then
-        if [[ ! -s $HOME/.todo ]]
-        then
-            echo $cat
-        else
-            cat -n $HOME/.todo
-        fi
-    elif [ $1 = -h ] || [ $1 = --help ]
-    then
-        echo '\ntodo - a simple TODO list\n'
-        echo 'Usage: todo [-h] [content]'
-        echo 'Option:'
-        echo '    -h --help       Print usage'
-        echo 'Example:'
-        echo '    $ todo'
-        echo '    $ todo eat your own dog food'
-        echo '    $ todo --help\n'
-    else
-        echo $@ >> $HOME/.todo
-    fi
-}
+[[ -s "/Users/eleven/.gvm/scripts/gvm" ]] && source "/Users/eleven/.gvm/scripts/gvm"
+[ -f /usr/local/bin/kubecm ] &&  source <(kubecm completion zsh)
 
 
-# ok - finish todo item
-ok () {
-    test -f $HOME/.todo || touch $HOME/.todo
-    if [ $# = 0 ]
-    then
-        if [[ ! -s $HOME/.todo ]]
-        then
-            echo $cat
-        else
-            cat -n $HOME/.todo
-            echo -ne "\n     Type a number to remove: "
-            read NUMBER
-            sed -ie ${NUMBER}d $HOME/.todo
-        fi
-    elif [ $1 = -h ] || [ $1 = --help ]
-    then
-        echo '\nok - finish TODO item\n'
-        echo 'Usage: ok [-h] [number]'
-        echo 'Option:'
-        echo '    -h --help       Print usage'
-        echo 'Example:'
-        echo '    $ ok'
-        echo '    $ ok 2'
-        echo '    $ ok --help\n'
-    else
-        sed -ie $1d $HOME/.todo
-    fi
-}
+# exec func
 
-# fs - determine size of a file or total size of a directory
-fs () {
-    if du -b /dev/null > /dev/null 2>&1; then
-        local arg=-sbh;
-    else
-        local arg=-sh;
-    fi
-    if [[ -n "$@" ]]; then
-        du $arg -- "$@";
-    else
-        du $arg .[^.]* ./*;
-    fi;
-}
+complete -F __complete_ssh_host ssh
+complete -f -F __complete_ssh_host scp
 
-# x - extract or unpack(uncompress) a compressed file
-x() {
-    if [ -f $1 ]; then
-        case $1 in
-            *.tar)       tar xvf $1;;
-            *.tar.bz2)   tar jxvf $1;;
-            *.tbz2)      tar jxvf $1;;
-            *.tar.gz)    tar zxvf $1;;
-            *.tgz)       tar zxvf $1;;
-            *.zip)       unzip -O gbk $1;;
-            *.gz)        gunzip $1;;
-            *.bz2)       bunzip2 $1;;
-            *.rar)       unrar e $1;;
-            *.Z)         uncompress $1;;
-            *.7z)        7z x $1;;
-            *)           echo "'$1' cannot be extracted via x()";
-        esac
-    else
-        echo "'$1' is not a valid file";
-    fi;
-}
 
-# fbi - show FBI warning. just for fun. :)
-fbi () {
-    _COLUMNS=$(tput cols)
-    _MESSAGE=" FBI Warining "
-    y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
-    spaces=$(printf "%-${y}s" " ")
-
-    echo " "
-    echo -e "${spaces}\033[41;37;5m FBI WARNING \033[0m"
-    echo " "
-    _COLUMNS=$(tput cols)
-    _MESSAGE="Ferderal Law provides severe civil and criminal penalties for"
-    y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
-    spaces=$(printf "%-${y}s" " ")
-    echo -e "${spaces}${_MESSAGE}"
-
-    _COLUMNS=$(tput cols)
-    _MESSAGE="the unauthorized reproduction, distribution, or exhibition of"
-    y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
-    spaces=$(printf "%-${y}s" " ")
-    echo -e "${spaces}${_MESSAGE}"
-
-    _COLUMNS=$(tput cols)
-    _MESSAGE="copyrighted motion pictures (Title 17, United States Code,"
-    y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
-    spaces=$(printf "%-${y}s" " ")
-    echo -e "${spaces}${_MESSAGE}"
-
-    _COLUMNS=$(tput cols)
-    _MESSAGE="Sections 501 and 508). The Federal Bureau of Investigation"
-    y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
-    spaces=$(printf "%-${y}s" " ")
-    echo -e "${spaces}${_MESSAGE}"
-
-    _COLUMNS=$(tput cols)
-    _MESSAGE="investigates allegations of criminal copyright infringement"
-    y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
-    spaces=$(printf "%-${y}s" " ")
-    echo -e "${spaces}${_MESSAGE}"
-
-    _COLUMNS=$(tput cols)
-    _MESSAGE="(Title 17, United States Code, Section 506)."
-    y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
-    spaces=$(printf "%-${y}s" " ")
-    echo -e "${spaces}${_MESSAGE}"
-    echo " "
-}
-
-# sz - source xmodmap
-sx () {
-    xmodmap ~/.Xmodmap
-}
-
-# ack search source code
-ackg () {
-   grep -rn $1 ./
-}
-
-# j - fzf integration with autojump
-j () {
-    if [[ "$#" -ne 0 ]]; then
-        cd $(autojump $@)
-        return
-    fi
-    cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)"
-}
-
-# ch - fzf integration chrome history
-ch () {
-    local cols sep google_history open
-    cols=$(( COLUMNS / 3 ))
-    sep='{::}'
-
-    if [ "$(uname)" = "Darwin" ]; then
-        google_history="$HOME/Library/Application Support/Google/Chrome/Default/History"
-        open=open
-    else
-        google_history="$HOME/.config/google-chrome/Default/History"
-        open=xdg-open
-    fi
-    cp -f "$google_history" /tmp/h
-    sqlite3 -separator $sep /tmp/h \
-        "select substr(title, 1, $cols), url
-        from urls order by last_visit_time desc" |
-    awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
-}
-
-# gshow - fzf integration git commit browser
-gshow () {
-    git log --graph --color=always \
-        --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-        --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                {}
-                FZF-EOF"
-}
-
-[ -f /usr/local/bin/kubectl ] && source <(kubectl completion zsh)
-[ -f /usr/local/bin/kubecm ] && source <(kubecm completion zsh)
+fpath=(~/.zsh.d/ $fpath)
+autoload -Uz compinit && compinit
